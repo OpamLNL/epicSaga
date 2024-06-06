@@ -24,6 +24,8 @@ export const fetchCharacters = () => {
     return async (dispatch) => {
         dispatch(fetchCharactersRequest());
         try {
+            console.log(`${apiBaseURL}${urls.characters.getAll}`);
+
             const response = await axios.get(`${apiBaseURL}${urls.characters.getAll}`);
             dispatch(fetchCharactersSuccess(response.data));
         } catch (error) {
