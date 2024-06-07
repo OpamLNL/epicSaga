@@ -100,16 +100,9 @@ export const App = () => {
         localStorage.removeItem('jwtRefreshToken');
         localStorage.removeItem('user');
         localStorage.removeItem('favorites');
-        // dispatch(logoutUser());
-
 
     };
 
-    // useEffect(() => {
-    //     if (!localStorage.getItem('user')) {
-    //         navigate('/home', { replace: true });
-    //     }
-    // }, [navigate]);
 
 
     useEffect(() => {
