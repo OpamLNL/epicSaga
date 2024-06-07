@@ -25,7 +25,6 @@ import {ThemeContext} from './themes/theme-context';
 import {darkTheme, lightTheme} from './themes/theme';
 import {LanguageProvider} from './language/language-context';
 import {apiBaseURL} from "./configs/urls";
-// import {fetchUserByUsername, logoutUser} from "./store/reducers/users/usersActions";
 
 const useStyles = makeStyles(theme => ({
     mainContainer: {
@@ -39,6 +38,7 @@ const useStyles = makeStyles(theme => ({
         minHeight: '100vh',
         position: 'relative',
         [theme.breakpoints.down('sm')]: {
+            width: '400px',
             top: '160px',
         }
 
@@ -88,7 +88,7 @@ const useStyles = makeStyles(theme => ({
 export const App = () => {
     const [theme, setTheme] = useState(darkTheme);
     const classes = useStyles();
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const toggleTheme = () => {
