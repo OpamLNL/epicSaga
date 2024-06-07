@@ -106,6 +106,8 @@ export const App = () => {
 
     useEffect(() => {
         const username = JSON.parse(localStorage.getItem('user'));
+        console.log(localStorage.getItem('user'));
+
         if (username) {
             dispatch(fetchUserByUsername(encodeURIComponent(username)))
                 .then((response) => {
