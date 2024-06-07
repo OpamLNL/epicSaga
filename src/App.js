@@ -24,7 +24,7 @@ import {
 import {ThemeContext} from './themes/theme-context';
 import {darkTheme, lightTheme} from './themes/theme';
 import {LanguageProvider} from './language/language-context';
-import {fetchUserByUsername, logoutUser} from "./store/reducers/users/usersActions";
+// import {fetchUserByUsername, logoutUser} from "./store/reducers/users/usersActions";
 
 const useStyles = makeStyles(theme => ({
     mainContainer: {
@@ -87,8 +87,8 @@ const useStyles = makeStyles(theme => ({
 export const App = () => {
     const [theme, setTheme] = useState(darkTheme);
     const classes = useStyles();
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    // const dispatch = useDispatch();
+    // const navigate = useNavigate();
 
     const toggleTheme = () => {
         setTheme(theme === lightTheme ? darkTheme : lightTheme);
