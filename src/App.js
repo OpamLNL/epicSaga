@@ -94,35 +94,35 @@ export const App = () => {
         setTheme(theme === lightTheme ? darkTheme : lightTheme);
     };
 
-    const logout = () => {
-        localStorage.removeItem('jwtAccessToken');
-        localStorage.removeItem('jwtRefreshToken');
-        localStorage.removeItem('user');
-        localStorage.removeItem('favorites');
-        dispatch(logoutUser());
-        navigate('/home');
-    };
+    // const logout = () => {
+    //     localStorage.removeItem('jwtAccessToken');
+    //     localStorage.removeItem('jwtRefreshToken');
+    //     localStorage.removeItem('user');
+    //     localStorage.removeItem('favorites');
+    //     dispatch(logoutUser());
+    //     navigate('/home');
+    // };
 
 
-    useEffect(() => {
-        const username = JSON.parse(localStorage.getItem('user'));
-        console.log(localStorage.getItem('user'));
-
-        if (username) {
-            dispatch(fetchUserByUsername(encodeURIComponent(username)))
-                .then((response) => {
-                    if (!response.ok || !response.data) {
-                        logout();
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error verifying user:', error);
-                    if (!localStorage.getItem('username')) {
-                        logout();
-                    }
-                });
-        }
-    }, [dispatch]);
+    // useEffect(() => {
+    //     const username = JSON.parse(localStorage.getItem('user'));
+    //     console.log(localStorage.getItem('user'));
+    //
+    //     if (username) {
+    //         dispatch(fetchUserByUsername(encodeURIComponent(username)))
+    //             .then((response) => {
+    //                 if (!response.ok || !response.data) {
+    //                     logout();
+    //                 }
+    //             })
+    //             .catch((error) => {
+    //                 console.error('Error verifying user:', error);
+    //                 if (!localStorage.getItem('username')) {
+    //                     logout();
+    //                 }
+    //             });
+    //     }
+    // }, [dispatch]);
 
 
 
