@@ -1,27 +1,30 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { CssBaseline, makeStyles, ThemeProvider } from '@material-ui/core';
-import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import {BrowserRouter as Router, Navigate, Route, Routes, useNavigate} from 'react-router-dom';
+import {Provider, useDispatch} from 'react-redux';
 import { store } from './store/store';
 import { Header, LeftSidebar, Overlay, RightSidebar } from './components';
 import {
     AdminLayout,
     CharacterLayout,
-    CharactersLayout, ContactLayout,
+    CharactersLayout,
+    ContactLayout,
     EditProfileLayout,
     EpicWorkLayout,
     EpicWorksLayout,
-    FavoriteLayout, LinksLayout,
+    FavoriteLayout,
+    LinksLayout,
     MainLayout,
     ProfileLayout,
     SearchResultLayout,
     SignInLayout,
-    SignUpLayout
+    SignUpLayout,
+    UserProfileLayout
 } from './layouts';
-import { ThemeContext } from './themes/theme-context';
-import { darkTheme, lightTheme } from './themes/theme';
-import { LanguageProvider } from './language/language-context';
-import {UserProfileLayout} from "./layouts/UserProfileLayout";
+import {ThemeContext} from './themes/theme-context';
+import {darkTheme, lightTheme} from './themes/theme';
+import {LanguageProvider} from './language/language-context';
+import {fetchUserByUsername, logoutUser} from "./store/reducers/users/usersActions";
 
 const useStyles = makeStyles(theme => ({
     mainContainer: {
@@ -79,13 +82,61 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+const verifyUser = async () => {
+    try {
+        const username = JSON.parse(localStorage.getItem('username'));
+        if (!username) return false;
+
+        const response = await fetch(`/api/users/getUserByUsername/${username}`);
+        const data = await response.json();
+
+        return response.ok && data;
+    } catch (error) {
+        console.error('Error verifying user:', error);
+        return false;
+    }
+};
+
+
+
 export const App = () => {
     const [theme, setTheme] = useState(darkTheme);
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const toggleTheme = () => {
         setTheme(theme === lightTheme ? darkTheme : lightTheme);
     };
+
+    const logout = () => {
+        localStorage.removeItem('jwtAccessToken');
+        localStorage.removeItem('jwtRefreshToken');
+        localStorage.removeItem('user');
+        localStorage.removeItem('favorites');
+        dispatch(logoutUser());
+        navigate('/home');
+    };
+
+
+    useEffect(() => {
+        const username = JSON.parse(localStorage.getItem('username'));
+        if (username) {
+            dispatch(fetchUserByUsername(encodeURIComponent(username)))
+                .then((response) => {
+                    if (!response.ok || !response.data) {
+                        logout();
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error verifying user:', error);
+                    if (!localStorage.getItem('username')) {
+                        logout();
+                    }
+                });
+        }
+    }, [dispatch]);
+
 
 
     // localStorage.removeItem('favorites');

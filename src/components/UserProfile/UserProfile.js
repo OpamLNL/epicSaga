@@ -95,6 +95,7 @@ export const UserProfile = () => {
         localStorage.removeItem('jwtAccessToken');
         localStorage.removeItem('jwtRefreshToken');
         localStorage.removeItem('user');
+        localStorage.removeItem('favorites');
         dispatch(logoutUser());
         navigate('/home');
     };
