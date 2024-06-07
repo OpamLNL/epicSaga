@@ -24,6 +24,7 @@ import {
 import {ThemeContext} from './themes/theme-context';
 import {darkTheme, lightTheme} from './themes/theme';
 import {LanguageProvider} from './language/language-context';
+import {apiBaseURL} from "./configs/urls";
 // import {fetchUserByUsername, logoutUser} from "./store/reducers/users/usersActions";
 
 const useStyles = makeStyles(theme => ({
@@ -88,41 +89,45 @@ export const App = () => {
     const [theme, setTheme] = useState(darkTheme);
     const classes = useStyles();
     // const dispatch = useDispatch();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const toggleTheme = () => {
         setTheme(theme === lightTheme ? darkTheme : lightTheme);
     };
 
-    // const logout = () => {
-    //     localStorage.removeItem('jwtAccessToken');
-    //     localStorage.removeItem('jwtRefreshToken');
-    //     localStorage.removeItem('user');
-    //     localStorage.removeItem('favorites');
-    //     dispatch(logoutUser());
-    //     navigate('/home');
-    // };
+    const logout = () => {
+        localStorage.removeItem('jwtAccessToken');
+        localStorage.removeItem('jwtRefreshToken');
+        localStorage.removeItem('user');
+        localStorage.removeItem('favorites');
+        // dispatch(logoutUser());
+        navigate('/home');
+    };
 
 
-    // useEffect(() => {
-    //     const username = JSON.parse(localStorage.getItem('user'));
-    //     console.log(localStorage.getItem('user'));
-    //
-    //     if (username) {
-    //         dispatch(fetchUserByUsername(encodeURIComponent(username)))
-    //             .then((response) => {
-    //                 if (!response.ok || !response.data) {
-    //                     logout();
-    //                 }
-    //             })
-    //             .catch((error) => {
-    //                 console.error('Error verifying user:', error);
-    //                 if (!localStorage.getItem('username')) {
-    //                     logout();
-    //                 }
-    //             });
-    //     }
-    // }, [dispatch]);
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user && user.username) {
+            const url = `${apiBaseURL}/api/users/getUserByUsername/${encodeURIComponent(user.username)}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (!data || data.error) {
+                        console.error('User not found or error occurred:', data.error);
+                        logout();
+                    } else {
+                        console.log('User is valid:', data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error verifying user:', error);
+                    logout();
+                });
+        } else {
+            logout();
+        }
+    }, [navigate]);
 
 
 
