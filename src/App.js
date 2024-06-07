@@ -82,21 +82,6 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const verifyUser = async () => {
-    try {
-        const username = JSON.parse(localStorage.getItem('username'));
-        if (!username) return false;
-
-        const response = await fetch(`/api/users/getUserByUsername/${username}`);
-        const data = await response.json();
-
-        return response.ok && data;
-    } catch (error) {
-        console.error('Error verifying user:', error);
-        return false;
-    }
-};
-
 
 
 export const App = () => {
@@ -120,7 +105,7 @@ export const App = () => {
 
 
     useEffect(() => {
-        const username = JSON.parse(localStorage.getItem('username'));
+        const username = JSON.parse(localStorage.getItem('user'));
         if (username) {
             dispatch(fetchUserByUsername(encodeURIComponent(username)))
                 .then((response) => {
