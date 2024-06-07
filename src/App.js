@@ -88,7 +88,7 @@ const useStyles = makeStyles(theme => ({
 export const App = () => {
     const [theme, setTheme] = useState(darkTheme);
     const classes = useStyles();
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const toggleTheme = () => {
@@ -101,8 +101,15 @@ export const App = () => {
         localStorage.removeItem('user');
         localStorage.removeItem('favorites');
         // dispatch(logoutUser());
-        navigate('/home');
+
+
     };
+
+    useEffect(() => {
+        if (!localStorage.getItem('user')) {
+            navigate('/home', { replace: true });
+        }
+    }, [navigate]);
 
 
     useEffect(() => {
