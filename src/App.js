@@ -89,7 +89,7 @@ export const App = () => {
     const [theme, setTheme] = useState(darkTheme);
     const classes = useStyles();
     // const dispatch = useDispatch();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const toggleTheme = () => {
         setTheme(theme === lightTheme ? darkTheme : lightTheme);
@@ -105,11 +105,11 @@ export const App = () => {
 
     };
 
-    useEffect(() => {
-        if (!localStorage.getItem('user')) {
-            navigate('/home', { replace: true });
-        }
-    }, [navigate]);
+    // useEffect(() => {
+    //     if (!localStorage.getItem('user')) {
+    //         navigate('/home', { replace: true });
+    //     }
+    // }, [navigate]);
 
 
     useEffect(() => {
@@ -134,7 +134,7 @@ export const App = () => {
         } else {
             logout();
         }
-    }, [navigate]);
+    }, []);
 
 
 
