@@ -173,43 +173,6 @@ export const fetchCharacterById = async (characterId) => {
     }
 };
 
-// const fetchCharacterById = async (characterId) => {
-//     try {
-//         const response = await fetch(`${apiBaseURL}${urls.characters.getById.replace(':id', characterId)}`);
-//         if (!response.ok) {
-//             throw new Error(`Error fetching character data: ${response.statusText}`);
-//         }
-//         return await response.json();
-//     } catch (error) {
-//         console.error('Error fetching character data:', error);
-//         throw error;
-//     }
-// };
-
-
-
-// export const fetchCharacterById = (characterId) => {
-//     return async (dispatch, getState) => {
-//         const state = getState();
-//         const existingCharacter = state.characters.characters.find(character => character.id === characterId);
-//
-//         if (existingCharacter) {
-//             dispatch({
-//                 type: SELECT_CHARACTER,
-//                 payload: existingCharacter
-//             });
-//         } else {
-//             dispatch(fetchCharacterByIdRequest());
-//             try {
-//                 const response = await axios.get(`${apiBaseURL}${urls.characters.getById}/${characterId}`);
-//                 dispatch(fetchCharacterByIdSuccess(response.data));
-//             } catch (error) {
-//                 console.error('Error fetching character by ID:', error);
-//                 dispatch(fetchCharacterByIdFailure(error.message));
-//             }
-//         }
-//     };
-// };
 
 export const fetchCharacterByIdRequest = () => {
     return {

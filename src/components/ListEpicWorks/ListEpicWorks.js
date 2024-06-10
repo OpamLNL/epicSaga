@@ -16,7 +16,8 @@ import {
 } from '../../store/reducers/epicWorks/epicWorksSelectors';
 
 import { fetchEpicWorks } from '../../store/reducers/epicWorks/epicWorksActions';
-import {parseTags} from "../../services/ParseTags";
+import { parseTags } from "../../services/ParseTags";
+import { parseImages } from "../../services/ParseImages";
 
 
 
@@ -90,15 +91,6 @@ export const ListEpicWorks = ({ searchKey }) => {
     }, [epicWorks, searchKey]);
 
 
-    const parseImages = (images) => {
-        try {
-            return JSON.parse(images);
-        } catch (e) {
-            console.error('Error parsing images', e);
-            return [];
-        }
-    };
-
     const handleItemClick = (itemId) => {
         navigate(`/epicWork/${itemId}`);
     };
@@ -112,6 +104,7 @@ export const ListEpicWorks = ({ searchKey }) => {
                 {filteredEpicWorks.length > 0 ? (
                     filteredEpicWorks.map((epicWork) => {
                         const images = parseImages(epicWork.images);
+
                         return (
                             <ListItem
                                 key={epicWork.id}

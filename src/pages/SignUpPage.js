@@ -88,8 +88,9 @@ export const SignUpPage = () => {
                 localStorage.setItem('jwtAccessToken', tokens.accessToken);
                 localStorage.setItem('jwtRefreshToken', tokens.refreshToken);
                 localStorage.setItem('user', JSON.stringify(user));
-                navigate('/home');
+
             }
+            navigate('/home');
         }));
     };
 

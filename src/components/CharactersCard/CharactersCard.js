@@ -5,18 +5,15 @@ import {CardContent, CircularProgress, Container, Typography} from '@mui/materia
 import { makeStyles } from '@material-ui/core/styles';
 import VolumeUpIcon from "@material-ui/icons/VolumeUp";
 
-
 import { FavoriteBadge } from "../FavoriteBadge/FavoriteBadge";
 import { RoundButton} from "../Buttons";
 import { TagBadge } from "../TagBadge/TagBadge";
 import { parseImages } from "../../services/ParseImages";
 import { speakText } from "../../services/SpeakText";
 
-
-
 import { apiBaseURL, charactersURL, urls} from '../../configs/urls';
 import { parseTags } from "../../services/ParseTags";
-import {useDispatch} from "react-redux";
+
 import {fetchCharacterById} from "../../store/reducers/characters/charactersActions";
 
 const IMG_API = apiBaseURL + charactersURL;
@@ -70,40 +67,17 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-// const fetchCharacterById = async (characterId) => {
-//     try {
-//         const response = await fetch(`${apiBaseURL}${urls.characters.getById.replace(':id', characterId)}`);
-//         if (!response.ok) {
-//             throw new Error(`Error fetching character data: ${response.statusText}`);
-//         }
-//         return await response.json();
-//     } catch (error) {
-//         console.error('Error fetching character data:', error);
-//         throw error;
-//     }
-// };
+
 
 
 export const CharactersCard = ({ characterId }) => {
     const navigate = useNavigate();
-    // const dispatch = useDispatch();
     const classes = useStyles();
     const [characterData, setCharacterData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isSpeaking, setIsSpeaking] = useState(false);
 
-    // useEffect(() => {
-    //     dispatch(fetchCharacterById(characterId))
-    //         // .unwrap()
-    //         .then(data => {
-    //             setCharacterData(data);
-    //             setLoading(false);
-    //         })
-    //         .catch(error => {
-    //             console.error('Error fetching character data:', error);
-    //             setLoading(false);
-    //         });
-    // }, [dispatch, characterId]);
+
 
     useEffect(() => {
         fetchCharacterById(characterId)
@@ -139,10 +113,9 @@ export const CharactersCard = ({ characterId }) => {
     };
 
    const images = parseImages(characterData.images);
-    console.log(characterData.images);
 
     const tags = parseTags(characterData?.tags);
-    // const tags = characterData?.tags ? JSON.parse(characterData.tags) : [];
+
     return (
         <div className={classes.card}>
             <img src={IMG_API + images[0]} alt={characterData.name} className={classes.image} />
