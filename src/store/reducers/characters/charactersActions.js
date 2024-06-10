@@ -181,18 +181,18 @@ export const deleteCharacterFailure = (error) => {
     };
 };
 
-export const fetchCharacterById = (characterId) => {
-    return async (dispatch) => {
-        dispatch(fetchCharacterByIdRequest());
-        try {
-            const response = await axios.get(`${apiBaseURL}${urls.characters.getById}/${characterId}`);
-            dispatch(fetchCharacterByIdSuccess(response.data));
-        } catch (error) {
-            console.error('Error fetching character by ID:', error);
-            dispatch(fetchCharacterByIdFailure(error.message));
-        }
-    };
-};
+// export const fetchCharacterById = (characterId) => {
+//     return async (dispatch) => {
+//         dispatch(fetchCharacterByIdRequest());
+//         try {
+//             const response = await axios.get(`${apiBaseURL}${urls.characters.getById}/${characterId}`);
+//             dispatch(fetchCharacterByIdSuccess(response.data));
+//         } catch (error) {
+//             console.error('Error fetching character by ID:', error);
+//             dispatch(fetchCharacterByIdFailure(error.message));
+//         }
+//     };
+// };
 
 export const fetchCharacterByIdRequest = () => {
     return {
