@@ -56,6 +56,32 @@ export const fetchCharactersFailure = (error) => {
     };
 };
 
+export const fetchCharacterById = (characterId) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        const existingCharacter = state.characters.characters.find(character => character.id === characterId);
+
+        if (existingCharacter) {
+            dispatch({
+                type: SELECT_CHARACTER,
+                payload: existingCharacter
+            });
+        } else {
+            dispatch(fetchCharacterByIdRequest());
+            try {
+                const response = await axios.get(`${apiBaseURL}${urls.characters.getById}/${characterId}`);
+                dispatch(fetchCharacterByIdSuccess(response.data));
+            } catch (error) {
+                           console.error('Error fetching character by ID:', error);
+                dispatch(fetchCharacterByIdFailure(error.message));
+            }
+        }
+    };
+};
+
+
+
+
 export const createCharacter = (characterData) => {
     return async (dispatch) => {
         dispatch(createCharacterRequest());

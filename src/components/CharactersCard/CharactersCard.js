@@ -7,15 +7,17 @@ import VolumeUpIcon from "@material-ui/icons/VolumeUp";
 
 
 import { FavoriteBadge } from "../FavoriteBadge/FavoriteBadge";
-import {EditButton, RoundButton} from "../Buttons";
+import { RoundButton} from "../Buttons";
 import { TagBadge } from "../TagBadge/TagBadge";
 import { parseImages } from "../../services/ParseImages";
 import { speakText } from "../../services/SpeakText";
 
+
+
 import { apiBaseURL, charactersURL, urls} from '../../configs/urls';
-import {parseTags} from "../../services/ParseTags";
-
-
+import { parseTags } from "../../services/ParseTags";
+import {useDispatch} from "react-redux";
+import {fetchCharacterById} from "../../store/reducers/characters/charactersActions";
 
 const IMG_API = apiBaseURL + charactersURL;
 
@@ -68,41 +70,51 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const fetchCharacterById = async (characterId) => {
-    try {
-        const response = await fetch(`${apiBaseURL}${urls.characters.getById.replace(':id', characterId)}`);
-        if (!response.ok) {
-            throw new Error(`Error fetching character data: ${response.statusText}`);
-        }
-        return await response.json();
-    } catch (error) {
-        console.error('Error fetching character data:', error);
-        throw error;
-    }
-};
+// const fetchCharacterById = async (characterId) => {
+//     try {
+//         const response = await fetch(`${apiBaseURL}${urls.characters.getById.replace(':id', characterId)}`);
+//         if (!response.ok) {
+//             throw new Error(`Error fetching character data: ${response.statusText}`);
+//         }
+//         return await response.json();
+//     } catch (error) {
+//         console.error('Error fetching character data:', error);
+//         throw error;
+//     }
+// };
 
 
 export const CharactersCard = ({ characterId }) => {
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
     const classes = useStyles();
     const [characterData, setCharacterData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isSpeaking, setIsSpeaking] = useState(false);
 
-
+    // useEffect(() => {
+    //     fetchCharacterById(characterId)
+    //         .then(data => {
+    //             setCharacterData(data);
+    //             setLoading(false);
+    //         })
+    //         .catch(error => {
+    //             console.error('Error fetching character data:', error);
+    //             setLoading(false);
+    //         });
+    // }, [characterId]);
 
     useEffect(() => {
-        fetchCharacterById(characterId)
-            .then(data => {
-                setCharacterData(data);
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error('Error fetching character data:', error);
-                setLoading(false);
-            });
-    }, [characterId]);
+        dispatch(fetchCharacterById(characterId));
+    }, [dispatch, characterId]);
+
+    useEffect(() => {
+        if (characterData) {
+            setCharacterData(characterData);
+            setLoading(false);
+        }
+    }, [characterData]);
+
 
     if (loading) {
         return (
