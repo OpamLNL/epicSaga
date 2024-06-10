@@ -118,13 +118,14 @@ export const CharactersCard = ({ characterId }) => {
         navigate(`/character/${characterData.id}`);
     };
 
-    const images = parseImages(characterData.images);
+   // const images = parseImages(characterData.images);
+    console.log(characterData.images);
 
     const tags = parseTags(characterData?.tags);
     // const tags = characterData?.tags ? JSON.parse(characterData.tags) : [];
     return (
         <div className={classes.card}>
-            <img src={IMG_API + images[0]} alt={characterData.name} className={classes.image} />
+            {/*<img src={IMG_API + images[0]} alt={characterData.name} className={classes.image} />*/}
             <div className={classes.details} >
                 <CardContent onClick={() => handleItemClick(characterData.id)} >
                     <Typography variant="h5">{characterData.name}</Typography>
