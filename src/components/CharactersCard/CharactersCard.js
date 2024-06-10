@@ -86,15 +86,27 @@ const useStyles = makeStyles((theme) => ({
 
 export const CharactersCard = ({ characterId }) => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const classes = useStyles();
     const [characterData, setCharacterData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isSpeaking, setIsSpeaking] = useState(false);
 
+    // useEffect(() => {
+    //     dispatch(fetchCharacterById(characterId))
+    //         // .unwrap()
+    //         .then(data => {
+    //             setCharacterData(data);
+    //             setLoading(false);
+    //         })
+    //         .catch(error => {
+    //             console.error('Error fetching character data:', error);
+    //             setLoading(false);
+    //         });
+    // }, [dispatch, characterId]);
+
     useEffect(() => {
-        dispatch(fetchCharacterById(characterId))
-            // .unwrap()
+        fetchCharacterById(characterId)
             .then(data => {
                 setCharacterData(data);
                 setLoading(false);
@@ -103,7 +115,15 @@ export const CharactersCard = ({ characterId }) => {
                 console.error('Error fetching character data:', error);
                 setLoading(false);
             });
-    }, [dispatch, characterId]);
+    }, [characterId]);
+
+    if (loading) {
+        return (
+            <Container>
+                <CircularProgress color="secondary" />
+            </Container>
+        );
+    }
 
 
     if (loading) {
@@ -118,14 +138,14 @@ export const CharactersCard = ({ characterId }) => {
         navigate(`/character/${characterData.id}`);
     };
 
-   // const images = parseImages(characterData.images);
+   const images = parseImages(characterData.images);
     console.log(characterData.images);
 
     const tags = parseTags(characterData?.tags);
     // const tags = characterData?.tags ? JSON.parse(characterData.tags) : [];
     return (
         <div className={classes.card}>
-            {/*<img src={IMG_API + images[0]} alt={characterData.name} className={classes.image} />*/}
+            <img src={IMG_API + images[0]} alt={characterData.name} className={classes.image} />
             <div className={classes.details} >
                 <CardContent onClick={() => handleItemClick(characterData.id)} >
                     <Typography variant="h5">{characterData.name}</Typography>
