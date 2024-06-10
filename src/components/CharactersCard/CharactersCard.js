@@ -92,21 +92,21 @@ export const CharactersCard = ({ characterId }) => {
     const [loading, setLoading] = useState(true);
     const [isSpeaking, setIsSpeaking] = useState(false);
 
-    // useEffect(() => {
-    //     fetchCharacterById(characterId)
-    //         .then(data => {
-    //             setCharacterData(data);
-    //             setLoading(false);
-    //         })
-    //         .catch(error => {
-    //             console.error('Error fetching character data:', error);
-    //             setLoading(false);
-    //         });
-    // }, [characterId]);
-
     useEffect(() => {
-        dispatch(fetchCharacterById(characterId));
-    }, [dispatch, characterId]);
+        fetchCharacterById(characterId)
+            .then(data => {
+                setCharacterData(data);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching character data:', error);
+                setLoading(false);
+            });
+    }, [characterId]);
+
+    // useEffect(() => {
+    //     dispatch(fetchCharacterById(characterId));
+    // }, [dispatch, characterId]);
 
     useEffect(() => {
         if (characterData) {
