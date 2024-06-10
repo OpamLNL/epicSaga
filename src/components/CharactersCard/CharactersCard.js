@@ -94,7 +94,7 @@ export const CharactersCard = ({ characterId }) => {
 
     useEffect(() => {
         dispatch(fetchCharacterById(characterId))
-            .unwrap()
+            // .unwrap()
             .then(data => {
                 setCharacterData(data);
                 setLoading(false);
