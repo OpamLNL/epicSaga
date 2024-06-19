@@ -116,8 +116,8 @@ export const UserProfile = () => {
                 </RoundButton>
                 (userData?.role === 'admin') &&
                     <div className={classes.editField}>
-                        <link src='/admin-page'>admin Page</link>
-                        <EditButton />
+                        <a href='/admin-page'>Admin Page</a>
+                
                     </div>
 
 
