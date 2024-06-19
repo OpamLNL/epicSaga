@@ -58,7 +58,7 @@ export const CharactersPage = () => {
     return (
         <div className={classes.pageContainer}>
             {characters.length > 0 ? characters.map(character => (
-                <CharactersCard key={character.id} characterId={character.id} />
+                <CharactersCard key={character.id} character={character} />
             )) : (
                 <Typography variant="h6">No characters found</Typography>
             )}

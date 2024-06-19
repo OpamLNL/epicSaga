@@ -70,16 +70,16 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export const CharactersCard = ({ characterId }) => {
+export const CharactersCard = ({ character }) => {
     const navigate = useNavigate();
     const classes = useStyles();
-    const [characterData, setCharacterData] = useState(null);
+    //const [characterData, setCharacterData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isSpeaking, setIsSpeaking] = useState(false);
 
+    const characterData = character;
 
-
-    useEffect(() => {
+    /*useEffect(() => {
         fetchCharacterById(characterId)
             .then(data => {
                 setCharacterData(data);
@@ -106,7 +106,7 @@ export const CharactersCard = ({ characterId }) => {
                 <CircularProgress color="secondary" />
             </Container>
         );
-    }
+    }*/
 
     const handleItemClick = () => {
         navigate(`/character/${characterData.id}`);

@@ -160,6 +160,12 @@ export const App = () => {
                                         <Route path={'epicWorks'} element={<EpicWorksLayout />} />
                                         <Route path={'character/:characterId'} element={<CharacterLayout />} />
                                         
+
+
+                                        <Route path={'characters'} element={<CharactersLayout />} />
+
+
+
                                         <Route path={'favorites'} element={<FavoriteLayout />} />
                                         <Route path={'search-result/:searchKey'} element={<SearchResultLayout />} />
                                         <Route path={'user-profile/:username'} element={<UserProfileLayout />} />
