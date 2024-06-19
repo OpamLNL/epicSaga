@@ -114,11 +114,11 @@ export const UserProfile = () => {
                 <RoundButton className={classes.button} onClick={handleLogout} >
                     <ExitToAppIcon />
                 </RoundButton>
-                (userData?.role === 'admin') &&
+                {(userData?.role === 'admin') &&
                     <div className={classes.editField}>
                         <a href='/admin-page'>Admin Page</a>
                 
-                    </div>
+                    </div>}
 
 
             </div>
