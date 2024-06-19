@@ -148,7 +148,7 @@ export const CharacterPage = ({ characterId }) => {
                         <VolumeUpIcon />
                     </RoundButton>
                     <FavoriteBadge objectId={characterData.id} type='character'/>
-                    {user?.role}
+                    
                     {
                         (user?.role === 'admin' ||  user?.role === 'editor') &&
                         <EditButton />
