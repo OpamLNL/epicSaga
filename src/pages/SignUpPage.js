@@ -90,8 +90,9 @@ export const SignUpPage = () => {
                 localStorage.setItem('user', JSON.stringify(user));
                 navigate('/home');
             }
-            navigate('/home');
+            
         }));
+        navigate('/home');
     };
 
     return (

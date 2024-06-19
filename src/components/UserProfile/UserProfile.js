@@ -114,6 +114,13 @@ export const UserProfile = () => {
                 <RoundButton className={classes.button} onClick={handleLogout} >
                     <ExitToAppIcon />
                 </RoundButton>
+                (userData?.role === 'admin') &&
+                    <div className={classes.editField}>
+                        <link src='/admin-page'>admin Page</link>
+                        <EditButton />
+                    </div>
+
+
             </div>
 
             <Box>
