@@ -118,7 +118,7 @@ export const CharactersCard = ({ character }) => {
 
     return (
         <div className={classes.card}>
-            <img src={IMG_API + images[0]} alt={characterData.name} className={classes.image} />
+            <img src={images.length > 0 ? IMG_API + images[0] : undefined} alt={characterData.name} className={classes.image} />
             <div className={classes.details} >
                 <CardContent onClick={() => handleItemClick(characterData.id)} >
                     <Typography variant="h5">{characterData.name}</Typography>
